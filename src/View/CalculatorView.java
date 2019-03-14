@@ -784,7 +784,7 @@ public class CalculatorView extends javax.swing.JFrame {
 
         jButton87.setText("7");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brasilian Real", "Angle", "Lengt", "Area" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brasilian Real" }));
         jComboBox4.setToolTipText("");
         jComboBox4.setFocusable(false);
 
@@ -792,7 +792,7 @@ public class CalculatorView extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("in");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Euro", "Gradians" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Euro" }));
         jComboBox5.setFocusable(false);
 
         jScrollPane3.setBorder(null);
@@ -1118,7 +1118,6 @@ public class CalculatorView extends javax.swing.JFrame {
         jTextArea4.setColumns(20);
         jTextArea4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextArea4.setRows(1);
-        jTextArea4.setText("Conversão Emo");
         jTextArea4.setToolTipText("");
         jTextArea4.setAutoscrolls(false);
         jTextArea4.setBorder(null);
@@ -1127,7 +1126,7 @@ public class CalculatorView extends javax.swing.JFrame {
         jTextArea4.setFocusable(false);
         jScrollPane4.setViewportView(jTextArea4);
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hexadecimal", "Advanced Mode", "Financial Mode", "Programming Mode" }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hexadecimal" }));
         jComboBox6.setFocusable(false);
         jComboBox6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1344,7 +1343,6 @@ public class CalculatorView extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextArea1.setRows(1);
-        jTextArea1.setText("Histórico maldito");
         jTextArea1.setToolTipText("");
         jTextArea1.setAutoscrolls(false);
         jTextArea1.setBorder(null);
