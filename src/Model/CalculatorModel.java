@@ -80,7 +80,7 @@ public class CalculatorModel {
         Double  
             firstNumber = null, secondNumber = null, sum = null;
         Boolean
-            fc = true;       
+            fc = true, calculate = false;       
         
         Integer currentIndex = calculationList.indexOf(calculationList.getFirst());
         Integer lastIndex = calculationList.indexOf(calculationList.getLast());
@@ -91,25 +91,27 @@ public class CalculatorModel {
             if(hasOperations(auxCalculator)){
                 op = auxCalculator;
                currentIndex++; 
-            }
-            else{
+            } else {
                 if (firstNumber == null ){                         
                     firstNumber = Double.parseDouble(auxCalculator);
-                    fc = false;
-                }
-                else{
+                } else {
                     secondNumber = Double.parseDouble(auxCalculator);
-                    fc = true;
+                    calculate = true;
                 }
                 currentIndex++;
 
             }
             if((currentIndex-1) < lastIndex)
                 auxCalculator = JSType.toString(calculationList.get(currentIndex));
-            if (fc){
-               sum = Calculate(op,firstNumber,secondNumber);
-               fc = false;
-            }  
+            if (calculate) {
+                if (fc){
+                   sum = Calculate(op,firstNumber,secondNumber);
+                   fc = false;
+                } else {
+                   sum = Calculate(op,sum,secondNumber); 
+                }
+                calculate = false;
+            }
         } 
         calculationList.clear();
     
