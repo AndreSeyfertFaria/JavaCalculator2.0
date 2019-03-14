@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.Iterator;
 import jdk.nashorn.internal.runtime.JSType;
 import java.util.ListIterator;
-import sun.invoke.util.VerifyType;
 
 /**
  *
