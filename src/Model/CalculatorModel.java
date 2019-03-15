@@ -6,9 +6,11 @@
 package Model;
 
 import java.util.LinkedList;
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.Iterator;
-import jdk.nashorn.internal.runtime.JSType;
 import java.util.ListIterator;
+
 
 /**
  *
@@ -81,11 +83,14 @@ public class CalculatorModel {
         Boolean
             fc = true, calculate = false;       
         
-        Integer currentIndex = calculationList.indexOf(calculationList.getFirst());
-        Integer lastIndex = calculationList.indexOf(calculationList.getLast());
-        auxCalculator = JSType.toString(calculationList.get(currentIndex));
+        calculationList = FormatCalculationList(calculationList);
+        
+        Integer currentIndex = 0;
+        Integer lastIndex = calculationList.size() - 1;
+        auxCalculator = calculationList.get(currentIndex).toString();
+        
        
-        while ((currentIndex-1) < lastIndex) {
+        while (currentIndex <= lastIndex) {
             
             if(hasOperations(auxCalculator)){
                 op = auxCalculator;
@@ -98,23 +103,163 @@ public class CalculatorModel {
                     calculate = true;
                 }
                 currentIndex++;
-
             }
-            if((currentIndex-1) < lastIndex)
-                auxCalculator = JSType.toString(calculationList.get(currentIndex));
             if (calculate) {
-                if (fc){
-                   sum = Calculate(op,firstNumber,secondNumber);
-                   fc = false;
-                } else {
-                   sum = Calculate(op,sum,secondNumber); 
-                }
-                calculate = false;
+            	if (fc){
+	               sum = Calculate(op,firstNumber,secondNumber);
+	               fc = false;
+	            } else {
+	            	sum = Calculate(op,sum,secondNumber);
+	            }
+	            calculate = false;	
             }
+            
+            if(currentIndex <= lastIndex)
+                auxCalculator = calculationList.get(currentIndex).toString();
         } 
         calculationList.clear();
     
-        return FormatResult(sum);
-        
+        return FormatResult(sum);  
     }
+    
+    private static LinkedList FormatCalculationList(LinkedList calculationList) {
+    	String 
+        	auxCalculator = "";
+	    LinkedList<Integer> IndexOperationList = new LinkedList<Integer>();
+	    
+	    Integer currentIndex = 0;
+	    Integer lastIndex = calculationList.size() - 1;
+	    
+	    while (currentIndex <= lastIndex) {
+	    	auxCalculator = calculationList.get(currentIndex).toString();
+	        if(hasOperations(auxCalculator)){
+	        	IndexOperationList.add(currentIndex);
+	        }
+	        currentIndex++;
+	    }	    
+	    calculationList = FormatExpression(calculationList,IndexOperationList);
+	    return calculationList;
+	}
+    
+    private static LinkedList FormatExpression(LinkedList calculationList,LinkedList IndexOperationList) {
+	    
+	    LinkedList<String> calculationListAux = new LinkedList<String>();
+	    calculationListAux = calculationList;
+	    
+	    Integer currentIndex;
+	    Integer lastIndex; //calculationList.size() - 1;
+	    while (calculationListAux.contains("x") || calculationListAux.contains("÷")) {
+	    	if( calculationListAux.contains("x")) {
+	    		calculationListAux = FindMultipliers(calculationList, calculationListAux, IndexOperationList);
+	    	} else if( calculationListAux.contains("÷")) {
+	    		calculationListAux = FindDivisions(calculationListAux, calculationListAux, IndexOperationList);
+	    	}		    
+		    currentIndex = 0;
+		    lastIndex = calculationListAux.size() -1;
+		    
+		    while (currentIndex <= lastIndex) {
+		        if(hasOperations(calculationList.get(currentIndex).toString())){
+		        	IndexOperationList.add(currentIndex);
+		        }
+		        currentIndex++;
+		    }	 
+	    }
+	    return calculationListAux;
+	}
+    
+    private static LinkedList FindMultipliers(LinkedList calculationList, LinkedList calculationListAux, LinkedList IndexOperationList) {   
+	    Integer currentIndex = 0;
+	    Integer lastIndex = IndexOperationList.size() - 1;
+	    String operation;
+	    Double x,y,result;
+	    calculationListAux = calculationList;
+	    while (currentIndex <= lastIndex) {
+	    	if(calculationListAux.get(Integer.parseInt((IndexOperationList.get(currentIndex).toString()))).toString() == "x"){
+	    		x = Double.parseDouble(calculationList.get((Integer.parseInt((IndexOperationList.get(currentIndex).toString()))-1)).toString()); // x
+	        	operation = calculationList.get(Integer.parseInt((IndexOperationList.get(currentIndex).toString()))).toString(); // operation
+	        	y =  Double.parseDouble(calculationList.get((Integer.parseInt((IndexOperationList.get(currentIndex).toString()))+1)).toString()); // y
+	        	
+	        	
+	        	
+	        	result = Calculate(operation, x, y);
+	        	calculationListAux.remove(calculationListAux.get(Integer.parseInt((IndexOperationList.get(currentIndex).toString()))-1));
+	        	calculationListAux.remove(calculationListAux.get(Integer.parseInt((IndexOperationList.get(currentIndex).toString()))-1));
+	        	calculationListAux.remove(calculationListAux.get(Integer.parseInt((IndexOperationList.get(currentIndex).toString()))-1));
+	        	calculationListAux.add((Integer.parseInt((IndexOperationList.get(currentIndex).toString()))-1),Double.toString(result));
+	        	return calculationListAux;
+	        } 
+	        currentIndex++;
+	    }
+	    return calculationList;
+	}
+    
+    private static LinkedList FindDivisions(LinkedList calculationList, LinkedList calculationListAux, LinkedList IndexOperationList) {   
+	    Integer currentIndex = 0;
+	    Integer lastIndex = IndexOperationList.size() - 1;
+	    String operation;
+	    Double x,y,result;
+	    ArrayList<Integer> usedIndex = new ArrayList<Integer>(); 
+	    
+	    calculationListAux = calculationList;
+		while (currentIndex <= lastIndex) { 
+			if (calculationListAux.get(Integer.parseInt((IndexOperationList.get(currentIndex).toString())))
+					.toString() == "÷") {
+				x = Double.parseDouble(calculationList
+						.get((Integer.parseInt((IndexOperationList.get(currentIndex).toString())) - 1)).toString()); // x
+				operation = calculationList.get(Integer.parseInt((IndexOperationList.get(currentIndex).toString())))
+						.toString(); // operation
+				y = Double.parseDouble(calculationList
+						.get((Integer.parseInt((IndexOperationList.get(currentIndex).toString())) + 1)).toString()); // y
+
+				result = Calculate(operation, x, y);
+				calculationListAux.remove(calculationListAux
+						.get(Integer.parseInt((IndexOperationList.get(currentIndex).toString())) - 1));
+				calculationListAux.remove(calculationListAux
+						.get(Integer.parseInt((IndexOperationList.get(currentIndex).toString())) - 1));
+				calculationListAux.remove(calculationListAux
+						.get(Integer.parseInt((IndexOperationList.get(currentIndex).toString())) - 1));
+				calculationListAux.add((Integer.parseInt((IndexOperationList.get(currentIndex).toString())) - 1),
+						Double.toString(result));
+				usedIndex.add(currentIndex);
+				return calculationListAux;
+			}
+			currentIndex++;
+		}
+		for (Integer index : usedIndex) {
+	    	IndexOperationList.remove(index);
+		}
+	    return calculationList;
+	}
+    /*
+    private static LinkedList FindSums(LinkedList calculationList, LinkedList calculationListAux, LinkedList IndexOperationList) {   
+	    Integer currentIndex = 0;
+	    Integer lastIndex = IndexOperationList.size() - 1;
+	    
+	    while (currentIndex <= lastIndex) {
+	    	if(calculationList.get(Integer.parseInt((IndexOperationList.get(currentIndex).toString()))).toString()  == "+"){
+	    		if (calculationListAux.isEmpty())
+	        		calculationListAux.add(JSType.toString(calculationList.get((JSType.toInteger(IndexOperationList.get(currentIndex))-1)))); // x
+	        	calculationListAux.add(JSType.toString(calculationList.get(JSType.toInteger(IndexOperationList.get(currentIndex))))); // operation
+	        	calculationListAux.add(JSType.toString(calculationList.get((JSType.toInteger(IndexOperationList.get(currentIndex)) + 1)))); // y
+	        }
+	        currentIndex++;
+	    }
+	    return calculationListAux;
+	}
+    
+    private static LinkedList Findsubtractions(LinkedList calculationList, LinkedList calculationListAux, LinkedList IndexOperationList) {   
+	    Integer currentIndex = 0;
+	    Integer lastIndex = IndexOperationList.size() - 1;
+	    
+	    while (currentIndex <= lastIndex) {
+	    	if(JSType.toString(calculationList.get(JSType.toInteger(IndexOperationList.get(currentIndex)))) == "-"){
+	    		if (calculationListAux.isEmpty())
+	        		calculationListAux.add(JSType.toString(calculationList.get((JSType.toInteger(IndexOperationList.get(currentIndex))-1)))); // x
+	        	calculationListAux.add(JSType.toString(calculationList.get(JSType.toInteger(IndexOperationList.get(currentIndex))))); // operation
+	        	calculationListAux.add(JSType.toString(calculationList.get((JSType.toInteger(IndexOperationList.get(currentIndex)) + 1)))); // y
+	        }
+	        currentIndex++;
+	    }
+	    return calculationListAux;
+	}*/
 }
