@@ -9,8 +9,6 @@ import Model.CalculatorModel;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import jdk.nashorn.internal.runtime.JSType;
 /**
  *
  * @author conrado
@@ -94,7 +92,6 @@ public class CalculatorController {
         String displayText;
         
         historicoContas.add(Historico(calculationList));
-        System.out.println(historicoContas);
         displayText = CalculatorModel.OnClickedResult(calculationList);
         return displayText;
     }
@@ -106,7 +103,7 @@ public class CalculatorController {
         Iterator<Integer> iterator = calculationList.iterator();
          
         while (iterator.hasNext()) {
-             historico = historico + JSType.toString(iterator.next());
+             historico = historico + iterator.next();
         }
         return historico;
     }
