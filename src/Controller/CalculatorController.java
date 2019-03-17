@@ -31,8 +31,7 @@ public class CalculatorController {
             else{
                 Integer index = calculationList.indexOf(calculationList.getLast());
                 calculationList.set(index, auxiliar + btnClicked);
-            }
-                
+            }       
         }
         else
             calculationList.add(btnClicked);
@@ -43,7 +42,7 @@ public class CalculatorController {
         if (!calculationList.isEmpty()){
             auxiliar = calculationList.getLast();
             
-            if (!CalculatorModel.operations.contains(auxiliar)){
+            if ((!CalculatorModel.operations.contains(auxiliar)) || (auxiliar.equals(")"))){
                 calculationList.add(btnClicked);
             }
             else{
@@ -52,6 +51,35 @@ public class CalculatorController {
         }
         else
             calculationList.add(btnClicked);
+    }
+    
+    public static Boolean OnClickedParenthesis(String btnClicked) { 
+        String auxiliar, error;
+        if (!calculationList.isEmpty()){
+            if (btnClicked.equals("(")) {
+                auxiliar = calculationList.getLast();
+
+                if (!CalculatorModel.operations.contains(auxiliar) || auxiliar.equals(")")){
+                    calculationList.add("x");
+                    calculationList.add(btnClicked);
+                    return true;
+                }
+                else{
+                    calculationList.add(btnClicked);
+                    return true;
+                }
+            } else {
+                if (calculationList.contains("(")) {
+                    calculationList.add(btnClicked);                                         
+                    return true;
+                }
+            }
+        }
+        else if (!btnClicked.equals(")")) {
+            calculationList.add(btnClicked);
+            return true;
+        }
+        return false;
     }
     
     private static String TratarResultado(String resultado) {                                       
@@ -81,9 +109,15 @@ public class CalculatorController {
         String displayText;
         displayText = "";
         
-        if(btnClicked != "C"){
-            displayText = history.getLast();
-            history.remove(history.getLast());
+        if(!btnClicked.equals("C")){
+            if (!history.isEmpty()) {
+                displayText = history.getLast();
+                history.remove(history.getLast());
+            }
+        } else {
+            calculationList.clear();
+            history.clear();
+            historicoContas.clear();
         }        
         return displayText;
     } 
@@ -97,7 +131,6 @@ public class CalculatorController {
     }
     
     public static String Historico (LinkedList calculationList) {
-        Iterator pos = calculationList.iterator();
         String historico = "";
      
         Iterator<Integer> iterator = calculationList.iterator();

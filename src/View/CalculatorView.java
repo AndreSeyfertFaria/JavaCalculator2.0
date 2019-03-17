@@ -17,6 +17,8 @@ import java.awt.Dimension;
 public class CalculatorView extends javax.swing.JFrame {
     Integer  
         ActivePageIndex;
+    Boolean
+        calcResultInDisplay = false;
     /**
      * Creates new form CalculatorView
      */
@@ -107,9 +109,9 @@ public class CalculatorView extends javax.swing.JFrame {
         jButton79 = new javax.swing.JButton();
         jButton80 = new javax.swing.JButton();
         jButton81 = new javax.swing.JButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<String>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
@@ -127,9 +129,9 @@ public class CalculatorView extends javax.swing.JFrame {
         jButton85 = new javax.swing.JButton();
         jButton86 = new javax.swing.JButton();
         jButton87 = new javax.swing.JButton();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        jComboBox4 = new javax.swing.JComboBox<String>();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
+        jComboBox5 = new javax.swing.JComboBox<String>();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
         jButton89 = new javax.swing.JButton();
@@ -207,9 +209,9 @@ public class CalculatorView extends javax.swing.JFrame {
         jButton156 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea4 = new javax.swing.JTextArea();
-        jComboBox6 = new javax.swing.JComboBox<>();
+        jComboBox6 = new javax.swing.JComboBox<String>();
         jPnlDisplay = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -328,6 +330,11 @@ public class CalculatorView extends javax.swing.JFrame {
 
         jButton22.setText("(");
         jButton22.setToolTipText("");
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
 
         jButton24.setText("x²");
         jButton24.setToolTipText("");
@@ -349,6 +356,11 @@ public class CalculatorView extends javax.swing.JFrame {
         });
 
         jButton28.setText(")");
+        jButton28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton28ActionPerformed(evt);
+            }
+        });
 
         jButton29.setText("√");
 
@@ -502,7 +514,7 @@ public class CalculatorView extends javax.swing.JFrame {
 
         jButton81.setText("tanh");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Degrees", "Angle", "Lengt", "Area" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Degrees", "Angle", "Lengt", "Area" }));
         jComboBox2.setToolTipText("");
         jComboBox2.setFocusable(false);
 
@@ -510,7 +522,7 @@ public class CalculatorView extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("in");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Degrees", "Radians", "Gradians" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Degrees", "Radians", "Gradians" }));
         jComboBox3.setFocusable(false);
 
         jScrollPane2.setBorder(null);
@@ -527,7 +539,7 @@ public class CalculatorView extends javax.swing.JFrame {
         jTextArea2.setAutoscrolls(false);
         jTextArea2.setBorder(null);
         jTextArea2.setCaretPosition(0);
-        jTextArea2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextArea2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTextArea2.setFocusable(false);
         jTextArea2.setPreferredSize(new java.awt.Dimension(230, 16));
         jScrollPane2.setViewportView(jTextArea2);
@@ -783,7 +795,7 @@ public class CalculatorView extends javax.swing.JFrame {
 
         jButton87.setText("7");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brasilian Real" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Brasilian Real" }));
         jComboBox4.setToolTipText("");
         jComboBox4.setFocusable(false);
 
@@ -791,7 +803,7 @@ public class CalculatorView extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("in");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Euro" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Euro" }));
         jComboBox5.setFocusable(false);
 
         jScrollPane3.setBorder(null);
@@ -808,7 +820,7 @@ public class CalculatorView extends javax.swing.JFrame {
         jTextArea3.setAutoscrolls(false);
         jTextArea3.setBorder(null);
         jTextArea3.setCaretPosition(0);
-        jTextArea3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextArea3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTextArea3.setFocusable(false);
         jTextArea3.setPreferredSize(new java.awt.Dimension(230, 16));
         jScrollPane3.setViewportView(jTextArea3);
@@ -1121,11 +1133,11 @@ public class CalculatorView extends javax.swing.JFrame {
         jTextArea4.setAutoscrolls(false);
         jTextArea4.setBorder(null);
         jTextArea4.setCaretPosition(0);
-        jTextArea4.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextArea4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTextArea4.setFocusable(false);
         jScrollPane4.setViewportView(jTextArea4);
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hexadecimal" }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hexadecimal" }));
         jComboBox6.setFocusable(false);
         jComboBox6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1311,7 +1323,7 @@ public class CalculatorView extends javax.swing.JFrame {
 
         jPnlDisplay.setLayout(new java.awt.GridBagLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Basic Mode", "Advanced Mode", "Financial Mode", "Programming Mode" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Basic Mode", "Advanced Mode", "Financial Mode", "Programming Mode" }));
         jComboBox1.setFocusable(false);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1346,7 +1358,7 @@ public class CalculatorView extends javax.swing.JFrame {
         jTextArea1.setAutoscrolls(false);
         jTextArea1.setBorder(null);
         jTextArea1.setCaretPosition(0);
-        jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTextArea1.setFocusable(false);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -1410,7 +1422,13 @@ public class CalculatorView extends javax.swing.JFrame {
         Object source = evt.getSource();
         if (source instanceof JButton){
             JButton but = (JButton) source;
-            String EnterNumber = jTextField1.getText() + but.getText();
+            String EnterNumber;
+            if (calcResultInDisplay) {
+                EnterNumber = but.getText();
+                calcResultInDisplay = false;
+            } else   
+                EnterNumber = jTextField1.getText() + but.getText();
+            
             jTextField1.setText(EnterNumber);            
             CalculatorController.OnClickedNumber(but.getText());
         }
@@ -1424,6 +1442,11 @@ public class CalculatorView extends javax.swing.JFrame {
             JButton but = (JButton) source;
             String EnterNumber = jTextField1.getText() + but.getText();            
             jTextField1.setText(CalculatorController.OnClickedUndo(but.getText()));  
+            if (but.getText().equals("C")){
+                jTextArea1.setText("");
+            }
+            if (calcResultInDisplay)
+                calcResultInDisplay = false;
         }
     }//GEN-LAST:event_ClickedUndo
 
@@ -1433,6 +1456,7 @@ public class CalculatorView extends javax.swing.JFrame {
             JButton but = (JButton) source;          
             jTextField1.setText(CalculatorController.OnClickedResult(but.getText())); 
             jTextArea1.setText(CalculatorController.historicoContas.toString());
+            calcResultInDisplay = true;
         }
     }//GEN-LAST:event_ClickedResult
 
@@ -1440,15 +1464,45 @@ public class CalculatorView extends javax.swing.JFrame {
         Object source = evt.getSource();
         if (source instanceof JButton){
             JButton but = (JButton) source;
-            String EnterNumber = jTextField1.getText() + but.getText();
-            jTextField1.setText(EnterNumber);            
+            
+            if (calcResultInDisplay) {
+                CalculatorController.OnClickedNumber(jTextField1.getText());
+                calcResultInDisplay = false;
+            }
             CalculatorController.OnClickedOperation(but.getText());
+            String EnterNumber = jTextField1.getText() + but.getText();
+            jTextField1.setText(EnterNumber); 
         }
     }//GEN-LAST:event_ClickedOperation
 
     private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox6ActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        Object source = evt.getSource();
+        if (source instanceof JButton){
+            JButton but = (JButton) source;
+            if (calcResultInDisplay) {
+                CalculatorController.OnClickedNumber(jTextField1.getText());
+                calcResultInDisplay = false;
+            }
+            String EnterNumber = jTextField1.getText() + but.getText();
+            jTextField1.setText(EnterNumber);            
+            CalculatorController.OnClickedParenthesis(but.getText());
+        }
+    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
+        Object source = evt.getSource();
+        if (source instanceof JButton){
+            JButton but = (JButton) source;
+            if (CalculatorController.OnClickedParenthesis(but.getText())) {
+                String EnterNumber = jTextField1.getText() + but.getText();
+                jTextField1.setText(EnterNumber);
+            }
+        }
+    }//GEN-LAST:event_jButton28ActionPerformed
 
     /**
      * @param args the command line arguments
